@@ -14,11 +14,14 @@
   "devDependencies": {
     "@meteora-ag/dlmm": "^1.9.3",
     "@solana/web3.js": "^1.98.4",
+    "@types/bn.js": "^5.2.0",
     "@types/node": "^25.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "bn.js": "^5.2.2",
+    "bs58": "^6.0.0",
     "dotenv": "^17.2.4"
   }
 }
