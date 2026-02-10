@@ -3,16 +3,20 @@ import DLMM, { StrategyType } from "@meteora-ag/dlmm";
 import bs58 from "bs58";
 import BN from "bn.js";
 
+import { MagnificentStrategy } from "./strategy";
+
 export class Sentinel {
   private connection: Connection;
   private poolAddress: PublicKey;
   private dlmm: DLMM | null = null;
   private wallet: Keypair;
+  private strategy: MagnificentStrategy;
 
   constructor(rpcUrl: string, poolAddressStr: string, privateKey: string) {
     this.connection = new Connection(rpcUrl, "confirmed");
     this.poolAddress = new PublicKey(poolAddressStr);
     this.wallet = Keypair.fromSecretKey(bs58.decode(privateKey));
+    this.strategy = new MagnificentStrategy();
   }
 
   async initialize() {
@@ -50,15 +54,30 @@ export class Sentinel {
 
     if (positions.userPositions.length === 0) {
         console.log("⚠️ No active positions found. Considering entry...");
-        // Strategy: Open a position around the active bin
-        // Range: +/- 5 bins (Concentrated but not too tight)
-        await this.openPosition(activeBin.binId, 5);
+        
+        // Use Magnificent Strategy to calculate initial range
+        const range = this.strategy.calculateRange(activeBin.binId);
+        // Note: openPosition expects +/- range number, but calculateRange returns absolute min/max
+        // Adapting openPosition signature might be better, but for now lets calc relative range
+        const relativeRange = Math.floor((range.max - range.min) / 2);
+        
+        await this.openPosition(activeBin.binId, relativeRange);
     } else {
         // Monitor existing positions for rebalancing
         for (const position of positions.userPositions) {
-            console.log(`Checking position ${position.publicKey.toBase58()}...`);
-            // Logic to check if active bin is outside range would go here
-            // If outside, withdraw and rebalance
+            // Simplified mock of position range (real app needs to fetch bin data from position)
+            // Assuming we track it or fetch it. 
+            // For hackathon demo, we check if we should rebalance based on active bin.
+            
+            // Mock position range for demo logic (since we don't have full position data in this partial snippet)
+            // In reality: position.lowerBinId, position.upperBinId
+            
+            // const shouldRebalance = this.strategy.shouldRebalance(activeBin.binId, { 
+            //    min: position.lowerBinId, 
+            //    max: position.upperBinId 
+            // });
+            
+            // if (shouldRebalance) { ... }
         }
     }
 
