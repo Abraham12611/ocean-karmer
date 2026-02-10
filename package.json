@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/index.ts",
+    "find-pool": "ts-node src/find_pool.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

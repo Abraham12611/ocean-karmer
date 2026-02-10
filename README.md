@@ -19,6 +19,9 @@ A Meteora DLMM Liquidity Sentinel for the Colosseum Agent Hackathon.
 1. Clone the repository.
 2. Install dependencies: `npm install`
 3. Configure environment variables (`.env`).
+   - Copy `.env.example` to `.env`.
+   - Set `SOLANA_RPC_URL`.
+   - Set `TARGET_POOL` (e.g., a SOL-USDC DLMM Pool address from Meteora).
 4. Run the sentinel: `npm start`
 
 ## License

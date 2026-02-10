@@ -28,7 +28,6 @@ export class Sentinel {
     await this.dlmm.refetchStates();
     
     const activeBin = await this.dlmm.getActiveBin();
-    const activeBinPrice = this.dlmm.fromPrice(activeBin.price);
     
     console.log(`
     ------------------------------------------------
