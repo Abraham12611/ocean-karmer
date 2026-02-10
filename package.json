@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node src/index.ts",
+    "dashboard": "ts-node src/dashboard.ts",
     "find-pool": "ts-node src/find_pool.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -20,6 +21,8 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.11.0",
     "bn.js": "^5.2.2",
     "bs58": "^6.0.0",
     "dotenv": "^17.2.4"
